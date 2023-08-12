@@ -1,0 +1,80 @@
+package trees;
+
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data)
+    {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+
+    }
+}
+public class BinaryTree{
+    Node root;//root for the binary tree
+    BinaryTree(int data)
+    {
+        this.root = new Node(data);
+
+    }
+    int TreeSum(Node root)
+    {
+        if(root == null) return 0;
+        return root.data + TreeSum(root.left) + TreeSum(root.right);
+    }
+    int CountNodes(Node root)
+    {
+        if(root == null) return 0;
+        return 1+ TreeSum(root.left) + TreeSum(root.right);
+    }
+    int leafNodes(Node root)
+    {
+        if(root == null) return 0;
+        if(root.left == null&& root.right == null)return 1;
+        return  TreeSum(root.left) + TreeSum(root.right);
+    }
+    int height(Node root)
+    {
+        if(root == null) return -1;
+        return 1 + Math.max(height(root.left) , height(root.right));
+    }
+    void printAtLevelHelper(Node root ,int level)
+    {
+        if(root == null) return ;
+        if(level==0)
+        {
+            System.out.println(root.data+" ");
+            return;
+        }
+        printAtLevel(root.left,level -1);
+        printAtLevel(root.right,level -1);
+        System.out.println();//leaving a line only when done with processing
+
+    }
+    void printAtLevelHelper(root,level) {
+        //at this point all processing has been done
+        System.out.println();
+    }
+
+    public static void main(String args[]){
+        BinaryTree bt = new BinaryTree((2));//create a bt with 2 as the root
+        bt.root.left = new Node(3);
+       bt. root.right = new Node(5);
+       bt. root.right = new Node(9);
+       bt. root.right = new Node(7);
+        //simple tree is created
+
+        System.out.println(bt.TreeSum(bt.root));
+        System.out.println(bt.CountNodes(bt.root));
+        System.out.println(bt.leafNodes(bt.root));
+        System.out.println(bt.height(bt.root));
+        bt.printAtLevel(bt.root,0);
+        System.out.println();
+        bt.printAtLevel(bt.root,1);
+        System.out.println();
+        bt.printAtLevel(bt.root,2);
+        System.out.println();
+    }
+}
